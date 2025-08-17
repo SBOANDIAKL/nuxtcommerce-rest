@@ -24,14 +24,5 @@ export default defineNuxtConfig({
       version: pkg.version,
     },
   },
-
-  graphql: {
-    clients: {
-      default: {
-        endpoint: process.env.GQL_HOST || '',
-      },
-    },
-  },
-
   compatibilityDate: '2024-08-03',
 });
