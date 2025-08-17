@@ -1,12 +1,5 @@
 import { LRUCache } from 'lru-cache';
 import { hash as ohash } from 'ohash';
-import { getProductsQuery } from '~/gql/queries/getProducts';
-import { getCategoriesQuery } from '~/gql/queries/getCategories';
-import { getSearchProductsQuery } from '~/gql/queries/getSearchProducts';
-import { getProductQuery } from '~/gql/queries/getProduct';
-import { addToCartMutation } from '~/gql/mutations/addToCart';
-import { updateItemQuantitiesMutation } from '~/gql/mutations/updateItemQuantities';
-import { checkoutMutation } from '~/gql/mutations/checkout';
 
 const promiseCache = new LRUCache({
   max: 500,
@@ -14,16 +7,16 @@ const promiseCache = new LRUCache({
 });
 
 async function _fetchGraphQL(query, variables = {}) {
-  const { $graphql } = useNuxtApp();
-  const session = localStorage.getItem('woocommerce-session');
+  // const { $graphql } = useNuxtApp();
+  // const session = localStorage.getItem('woocommerce-session');
 
-  if (!session) {
-    const response = await $graphql.default.rawRequest(query, variables);
-    localStorage.setItem('woocommerce-session', `Session ${response.headers.get('woocommerce-session')}`);
-    return response.data;
-  }
+  // if (!session) {
+  //   const response = await $graphql.default.rawRequest(query, variables);
+  //   localStorage.setItem('woocommerce-session', `Session ${response.headers.get('woocommerce-session')}`);
+  //   return response.data;
+  // }
 
-  return await $graphql.default.request(query, variables, { 'woocommerce-session': session });
+  // return await $graphql.default.request(query, variables, { 'woocommerce-session': session });
 }
 
 export function fetchGraphQL(query, variables) {
@@ -68,19 +61,19 @@ export function fetchGraphQL(query, variables) {
 //Query functions
 
 export function listProducts(variables) {
-  return fetchGraphQL(getProductsQuery, variables);
+  // return fetchGraphQL(getProductsQuery, variables);
 }
 
-export function listCategories() {
-  return fetchGraphQL(getCategoriesQuery);
-}
+// export function listCategories() {
+//   return fetchGraphQL(getCategoriesQuery);
+// }
 
 export function searchProducts(search) {
-  return fetchGraphQL(getSearchProductsQuery, { search });
+  // return fetchGraphQL(getSearchProductsQuery, { search });
 }
 
 export function getProduct(slug, sku) {
-  return fetchGraphQL(getProductQuery, { slug, sku });
+  // return fetchGraphQL(getProductQuery, { slug, sku });
 }
 
 //Mutation functions
@@ -91,13 +84,13 @@ async function fetchGraphQLMutation(query, variables = {}) {
 }
 
 export function addToCart(input) {
-  return fetchGraphQLMutation(addToCartMutation, { input });
+  // return fetchGraphQLMutation(addToCartMutation, { input });
 }
 
 export function updateItemQuantities(input) {
-  return fetchGraphQLMutation(updateItemQuantitiesMutation, { input });
+  // return fetchGraphQLMutation(updateItemQuantitiesMutation, { input });
 }
 
 export function checkout(input) {
-  return fetchGraphQLMutation(checkoutMutation, { input });
+  // return fetchGraphQLMutation(checkoutMutation, { input });
 }
