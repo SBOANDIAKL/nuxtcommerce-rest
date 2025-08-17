@@ -6,7 +6,7 @@ import { betterAuth } from 'better-auth'
 import { anonymous, admin } from 'better-auth/plugins'
 
 let _auth: ReturnType<typeof betterAuth>
-export function serverAuth() {
+export function auth() {
   if (!_auth) {
     _auth = betterAuth({
         database: drizzleAdapter(db, {
