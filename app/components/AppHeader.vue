@@ -16,8 +16,8 @@ const search = () => {
 
 async function fetch() {
   try {
-    const response = await searchProducts(searchQuery.value);
-    searchResults.value = response.products.nodes;
+    // const response = await searchProducts(searchQuery.value);
+    // searchResults.value = response.products.nodes;
   } finally {
     isLoading.value = false;
   }
