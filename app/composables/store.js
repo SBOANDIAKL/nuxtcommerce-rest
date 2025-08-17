@@ -79,8 +79,8 @@ export function getProduct(slug, sku) {
 //Mutation functions
 
 async function fetchGraphQLMutation(query, variables = {}) {
-  const { $graphql } = useNuxtApp();
-  return await $graphql.default.request(query, variables, { 'woocommerce-session': localStorage.getItem('woocommerce-session') });
+  // const { $graphql } = useNuxtApp();
+  // return await $graphql.default.request(query, variables, { 'woocommerce-session': localStorage.getItem('woocommerce-session') });
 }
 
 export function addToCart(input) {
