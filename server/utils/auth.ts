@@ -1,18 +1,18 @@
-import * as schema from "../db/schema";
-import { db } from "./db";
-import { drizzleAdapter } from "better-auth/adapters/drizzle";
-
 import { betterAuth } from 'better-auth'
-import { anonymous, admin } from 'better-auth/plugins'
+import { drizzleAdapter } from 'better-auth/adapters/drizzle'
+import { admin, anonymous } from 'better-auth/plugins'
+
+import * as schema from '../db/schema/index'
+import { db } from './db'
 
 let _auth: ReturnType<typeof betterAuth>
 export function auth() {
   if (!_auth) {
     _auth = betterAuth({
-        database: drizzleAdapter(db, {
-            provider: "pg",
-            schema
-        }),
+      database: drizzleAdapter(db(), {
+        provider: 'pg',
+        schema,
+      }),
       baseURL: getBaseURL(),
       emailAndPassword: {
         enabled: true,

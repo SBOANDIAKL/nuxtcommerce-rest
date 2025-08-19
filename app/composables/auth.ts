@@ -1,11 +1,11 @@
-import { defu } from 'defu'
-import { createAuthClient } from 'better-auth/client'
 import type {
+  ClientOptions,
   InferSessionFromClient,
   InferUserFromClient,
-  ClientOptions,
 } from 'better-auth/client'
 import type { RouteLocationRaw } from 'vue-router'
+import { createAuthClient } from 'better-auth/client'
+import { defu } from 'defu'
 
 interface RuntimeAuthConfig {
   redirectUserTo: RouteLocationRaw | string
@@ -50,7 +50,8 @@ export function useAuth() {
 
   if (import.meta.client) {
     client.$store.listen('$sessionSignal', async (signal) => {
-      if (!signal) return
+      if (!signal)
+        return
       await fetchSession()
     })
   }

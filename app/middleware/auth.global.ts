@@ -35,6 +35,11 @@ export default defineNuxtRouteMiddleware(async (to) => {
   const { loggedIn, options, fetchSession } = useAuth()
   const { only, redirectUserTo, redirectGuestTo } = defu(to.meta?.auth, options)
 
+  // If client-side, fetch session between each navigation
+  if (import.meta.client) {
+    await fetchSession()
+  }
+
   // If guest mode, redirect if authenticated
   if (only === 'guest' && loggedIn.value) {
     // Avoid infinite redirect
@@ -44,12 +49,8 @@ export default defineNuxtRouteMiddleware(async (to) => {
     return navigateTo(redirectUserTo)
   }
 
-  // If client-side, fetch session between each navigation
-  if (import.meta.client) {
-    await fetchSession()
-  }
-  // If not authenticated, redirect to home
-  if (!loggedIn.value) {
+  // If user mode, redirect if not authenticated
+  if (only === 'user' && !loggedIn.value) {
     // Avoid infinite redirect
     if (to.path === redirectGuestTo) {
       return

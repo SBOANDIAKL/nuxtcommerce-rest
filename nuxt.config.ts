@@ -1,11 +1,25 @@
-import pkg from './package.json';
+import pkg from './package.json'
 
 export default defineNuxtConfig({
-  devtools: { enabled: false },
+  // devtools: { enabled: false },
 
-  modules: [ '@vueuse/nuxt', '@nuxt/ui', '@nuxt/image', 'notivue/nuxt', '@nuxt/eslint'],
+  modules: ['@vueuse/nuxt', '@nuxt/ui', '@nuxt/image', 'notivue/nuxt', '@nuxt/eslint'],
+  css: ['~/assets/css/main.css', 'notivue/notification.css', 'notivue/animations.css'],
+
+  runtimeConfig: {
+    public: {
+      version: pkg.version,
+    },
+  },
 
   future: { compatibilityVersion: 4 },
+  compatibilityDate: '2024-08-03',
+  eslint: {
+    config: {
+      standalone: false,
+      stylistic: true,
+    },
+  },
 
   notivue: {
     position: 'top-center',
@@ -16,18 +30,4 @@ export default defineNuxtConfig({
       },
     },
   },
-  css: ['~/assets/css/main.css', 'notivue/notification.css', 'notivue/animations.css'],
-
-  runtimeConfig: {
-    public: {
-      version: pkg.version,
-    },
-  },
-  eslint: {
-    config: {
-      standalone: false,
-      stylistic: true,
-    },
-  },
-  compatibilityDate: '2024-08-03',
-});
+})
