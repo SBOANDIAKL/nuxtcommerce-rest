@@ -99,17 +99,20 @@ async function handleResendEmail() {
 </script>
 
 <template>
-  <UContainer class="flex items-center justify-center sm:p-4 sm:min-w-160">
-    <UCard class="w-full max-w-md">
+  <UContainer class="min-h-[calc(100vh-6rem)] flex items-center justify-center p-4">
+    <UCard class="w-full max-w-md rounded-3xl backdrop-blur bg-white/70 dark:bg-black/30 shadow-xl border border-neutral-200/60 dark:border-white/10">
       <template #header>
-        <div class="text-center p-4">
-          <h1 class="text-xl font-semibold">
-            {{ 'Sign In' }}
+        <div class="text-center px-6 pt-6 pb-2">
+          <h1 class="text-2xl font-semibold">
+            {{ 'Welcome back' }}
           </h1>
+          <p class="text-sm text-neutral-500 dark:text-neutral-400 mt-1">
+            {{ 'Sign in to continue' }}
+          </p>
         </div>
       </template>
-      <div class="space-y-4">
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+      <div class="space-y-4 px-6 pb-6">
+        <div>
           <UButton
             color="neutral"
             variant="outline"
@@ -117,11 +120,12 @@ async function handleResendEmail() {
             class="justify-center"
             :loading="loading && loadingAction === 'google'"
             :disabled="loading"
+            block
             @click="onSocialLogin('google')"
           >
             Google
           </UButton>
-          <UButton
+          <!-- <UButton
             color="neutral"
             variant="outline"
             icon="i-simple-icons-github"
@@ -131,15 +135,15 @@ async function handleResendEmail() {
             @click="onSocialLogin('github')"
           >
             Github
-          </UButton>
+          </UButton> -->
         </div>
 
-        <USeparator label="Or" />
+        <USeparator label="Or continue with" />
 
         <UForm
           :schema="schema"
           :state="state"
-          class="space-y-4"
+          class="space-y-3"
           @submit="onSubmit"
         >
           <UFormField
@@ -192,7 +196,7 @@ async function handleResendEmail() {
             :disabled="loading"
             :loading="loading && loadingAction === 'submit'"
           >
-            {{ 'Sign In' }}
+            {{ 'Continue' }}
           </UButton>
 
           <div class="text-center text-sm">

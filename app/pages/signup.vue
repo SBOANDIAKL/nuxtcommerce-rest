@@ -24,10 +24,6 @@ const schema = z.object({
   name: z.string().min(5, 'Name must be at least 5 characters'),
   email: z.email('Invalid email address'),
   password: z.string().min(8, 'Password must be at least 8 characters'),
-  confirmPassword: z.string(),
-}).refine(data => data.password === data.confirmPassword, {
-  message: 'Passwords do not match',
-  path: ['confirmPassword'],
 })
 
 type Schema = z.infer<typeof schema>
@@ -72,24 +68,27 @@ async function onSubmit(event: any) {
     state.name = undefined
     state.email = undefined
     state.password = undefined
-    state.confirmPassword = undefined
+    navigateTo(redirectTo.value)
   }
   loading.value = false
 }
 </script>
 
 <template>
-  <UContainer class="flex items-center justify-center sm:p-4 sm:min-w-160">
-    <UCard class="w-full max-w-md">
+  <UContainer class="min-h-[calc(100vh-6rem)] flex items-center justify-center p-4">
+    <UCard class="w-full max-w-md rounded-3xl backdrop-blur bg-white/70 dark:bg-black/30 shadow-xl border border-neutral-200/60 dark:border-white/10">
       <template #header>
-        <div class="text-center p-4">
-          <h1 class="text-xl font-semibold">
-            Sign Up
+        <div class="text-center px-6 pt-6 pb-2">
+          <h1 class="text-2xl font-semibold">
+            {{ 'Create your account' }}
           </h1>
+          <p class="text-sm text-neutral-500 dark:text-neutral-400 mt-1">
+            {{ 'Join to personalize your experience' }}
+          </p>
         </div>
       </template>
 
-      <div class="space-y-4">
+      <div class="space-y-4 px-6 pb-6">
         <UButton
           color="neutral"
           variant="outline"
@@ -103,12 +102,12 @@ async function onSubmit(event: any) {
           Google
         </UButton>
 
-        <USeparator label="Or" />
+        <USeparator label="Or sign up with" />
 
         <UForm
           :schema="schema"
           :state="state"
-          class="space-y-4"
+          class="space-y-3"
           @submit="onSubmit"
         >
           <UFormField
@@ -150,7 +149,7 @@ async function onSubmit(event: any) {
             />
           </UFormField>
 
-          <UFormField
+          <!-- <UFormField
             label="Confirm Password"
             name="confirmPassword"
             required
@@ -161,7 +160,7 @@ async function onSubmit(event: any) {
               placeholder="Confirm Password"
               class="w-full"
             />
-          </UFormField>
+          </UFormField> -->
 
           <UButton
             type="submit"
@@ -170,19 +169,19 @@ async function onSubmit(event: any) {
             :loading="loading && loadingAction === 'submit'"
             :disabled="loading"
           >
-            Submit
+            {{ 'Create account' }}
           </UButton>
         </UForm>
 
         <div class="text-center text-sm">
-          Have an account?
+          {{ 'Have an account?' }}
           <UButton
             variant="link"
             color="primary"
             :disabled="loading"
             to="/signin"
           >
-            Sign In
+            {{ 'Sign In' }}
           </UButton>
         </div>
       </div>
